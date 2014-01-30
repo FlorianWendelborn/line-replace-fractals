@@ -2,10 +2,14 @@
 <head>
 	<title>line-replace.js</title>
 	<link rel="stylesheet" href="./main.css">
-	<script src="./sylvester.js"></script>
 	<script src="./main.js"></script>
 </head>
 <body>
+	<div id="menu">
+		<select id="choose" onchange="chosen()"></select>
+		<input type="text" onchange="updateS()" id="s" value="400">
+		<input type="text" onchange="updateT()" id="t" value="200">
+	</div>
 	<canvas></canvas>
 </body>
 </html>
