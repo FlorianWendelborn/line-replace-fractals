@@ -15,6 +15,10 @@ var patterns = [{
 	f: [[-45,0,0,Math.sqrt(.5)],[-135,1,0,Math.sqrt(.5)]],
 	i: 14
 },{
+	name: 'work-in-progress',
+	f: [[-90,0,0,.5],[0,0,-.5,.5],[90,.5,-.5,0.5],[0,.5,0,.5]],
+	i: 8
+},{
 	name: 'koch-curve',
 	f: [[0,0,0,1/3],[-60,1/3,0,1/3],[60,1/2,-Math.sqrt(1/12),1/3],[0,2/3,0,1/3]],
 	i: 7
@@ -63,8 +67,12 @@ var patterns = [{
 	f: [[0,0,0,Math.sqrt(.5)],[90,0,.5,.5],[135,0.5,0,Math.sqrt(2)/2]],
 	i: 9
 },{
+	name: 'woot-ever',
+	f: [[-90,0,0,.5],[0,0,-.5,.5],[90,.5,-.5,0.5]],
+	i: 10
+},{
 	name: 'split',
-	f: [[0,0,0,1],[0,0,1,1/3],[0,2/3,1,1/3]],
+	f: [[0,0,0,1],[0,0,1/2,1/3],[0,2/3,1/2,1/3]],
 	i: 10
 },{
 	name: 'holes',
@@ -118,8 +126,6 @@ function chosen () {
 	pattern = patterns[select.value].f;
 	data = [[0,-.5,0,1]];
 	iterations = patterns[select.value].i;
-
-	alert(select.value);
 
 	if (animate) {
 		if (rendering) {
