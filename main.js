@@ -3,7 +3,6 @@ var height, width;
 var data = [];
 var rendering, cancel;
 
-var s = 400;
 var animate = 200;
 var iterations, pattern;
 
@@ -113,9 +112,6 @@ window.onload = function () {
 }
 window.onresize = updateDimensions;
 
-function updateS () {
-	s = document.getElementById('s').value;
-}
 function updateT () {
 	animate = document.getElementById('t').value;
 }
@@ -155,12 +151,6 @@ function updateDimensions () {
 	render();
 }
 
-function scale () {
-	var scale_x,scale_y,scale_s;
-	// #todo: calculate scale
-	return [scale_x,scale_y,scale_s];
-}
-
 function x (v) {
 	return v[1]+Math.cos(v[0]*Math.PI/180)*v[3];
 }
@@ -178,24 +168,54 @@ function ranim (n) {
 		},animate);
 	} else {
 		rendering = false;
-		console.log('finish');
 	}
 }
 
+function scale () {
+	var min_x=0,max_x=0,min_y=0,max_y=0,scale_s=0,scale_x=0,scale_y=0;
+
+	for (var i = 0; i < data.length; i++) {
+		// getting primary values
+		var v = data[i];
+		
+		// checking primary values
+		min_x = v[1]<min_x?v[1]:min_x;
+		max_x = v[1]>max_x?v[1]:max_x;
+		min_y = v[2]<min_y?v[2]:min_y;
+		max_y = v[2]>max_y?v[2]:max_y;
+		
+		// getting secondary values
+		var v_x = x(v),
+			v_y = y(v);
+		
+		// checking secondary values
+		min_x = v_x<min_x?v_x:min_x;
+		max_x = v_x>max_x?v_x:max_x;
+		min_y = v_y<min_y?v_y:min_y;
+		max_y = v_y>max_y?v_y:max_y;
+	}
+
+	// calculating scale
+
+	scale_s = height/(max_y-min_y)<width/(max_x-min_x)?height/(max_y-min_y):width/(max_x-min_x);
+
+	scale_x = (max_x+min_x)/2;
+	scale_y = (max_y+min_y)/2;
+
+	return [scale_s,scale_x,scale_y];
+}
+
 function render () {
+	var scales = scale();
 	ctx.strokeStyle = 'rgba(255,0,0,1)';
 	ctx.beginPath();
 	for (var i = 0; i < data.length; i++) {
 		var v = data[i];
-		drawVector(v);
+		ctx.moveTo(width/2+scales[0]*(v[1]-scales[1]),height/2+scales[0]*(v[2]-scales[2]));
+		ctx.lineTo(width/2+scales[0]*(x(v)-scales[1]),height/2+scales[0]*(y(v)-scales[2]));
 	}
 	ctx.clearRect(0,0,width,height);
 	ctx.stroke();
-}
-
-function drawVector (v) {
-	ctx.moveTo(width/2+s*v[1],height/2+s*v[2]);
-	ctx.lineTo(width/2+s*x(v),height/2+s*y(v));
 }
 
 function iterate () {
