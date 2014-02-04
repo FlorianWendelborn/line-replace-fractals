@@ -155,6 +155,12 @@ function updateDimensions () {
 	render();
 }
 
+function scale () {
+	var scale_x,scale_y,scale_s;
+	// #todo: calculate scale
+	return [scale_x,scale_y,scale_s];
+}
+
 function x (v) {
 	return v[1]+Math.cos(v[0]*Math.PI/180)*v[3];
 }
