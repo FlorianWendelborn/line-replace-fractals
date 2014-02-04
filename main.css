@@ -9,17 +9,18 @@ body, html {
 }
 
 canvas {
-	position:absolute;
-	top: 40px;
+	position:fixed;
+	top: 0px;
 	left: 0px;
 	right: 0px;
-	bottom: 0px;
+	bottom: 20px;
 }
 #menu {
 	background-color: #444;
 	position: fixed;
-	top: 0px;
+	text-align: center;
 	left: 0px;
 	right: 0px;
-	height: 40px;
+	bottom: 0px;
+	height: 20px;
 }

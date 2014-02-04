@@ -8,30 +8,73 @@ var iterations, pattern;
 
 var patterns = [{
 	name: '',
-	f: [[]]
+	f: []
 },{
 	name: 'dragon',
 	f: [[-45,0,0,Math.sqrt(.5)],[-135,1,0,Math.sqrt(.5)]],
 	i: 14
 },{
-	name: 'work-in-progress',
-	f: [[-90,0,0,.5],[0,0,-.5,.5],[90,.5,-.5,0.5],[0,.5,0,.5]],
-	i: 8
-},{
 	name: 'koch-curve',
 	f: [[0,0,0,1/3],[-60,1/3,0,1/3],[60,1/2,-Math.sqrt(1/12),1/3],[0,2/3,0,1/3]],
 	i: 7
 },{
+	name: 'koch-snowflake',
+	d: [[180,1,0,1],[-60,0,0,1],[60,.5,-Math.sqrt(3)/2,1]],
+	f: [[0,0,0,1/3],[-60,1/3,0,1/3],[60,1/2,-Math.sqrt(1/12),1/3],[0,2/3,0,1/3]],
+	i: 7
+},{
+	name: 'koch-antisnowflake',
+	d: [[0,0,0,1],[120,.5,-Math.sqrt(3)/2,1],[-120,1,0,1]],
+	f: [[0,0,0,1/3],[-60,1/3,0,1/3],[60,1/2,-Math.sqrt(1/12),1/3],[0,2/3,0,1/3]],
+	i: 7
+},{
+	name: 'koch-island',
+	d: [[0,0,0,1],[90,1,0,1],[180,1,1,1],[-90,0,1,1]],
+	f: [[0,0,0,.25],[90,.25,0,.25],[0,.25,.25,.25],[-90,.5,.25,.25],[90,.5,-.25,.25],[180,.75,-.25,.25],[-90,.75,0,.25],[180,1,0,.25]],
+	i: 5
+},{
 	name: 'sierpinski-triangle',
-	f: [[0,0,0,.5],[0,.25,Math.sqrt(2)/4,.5],[0,.5,0,.5]],
+	f: [[0,0,0,.5],[0,.25,-Math.sqrt(3)/4,.5],[0,.5,0,.5]],
 	i: 10
 },{
 	name: 'self-avoiding-dragon',
 	f: [[-90,0,0,.5],[45,0,-.5,Math.sqrt(2)/2],[180,1,0,.5]],
-	i: 10
+	i: 12
+},{
+	name: 'cantor-set',
+	f: [[0,0,0,1],[0,0,1/5,1/3],[0,2/3,1/5,1/3]],
+	i: 7
+},{
+	name: 'levy-curve',
+	f: [[-45,0,0,Math.sqrt(.5)],[45,.5,-.5,Math.sqrt(.5)]],
+	i: 14
+},{
+	name: 'peano-curve',
+	f: [[0,0,0,1/3],[-90,1/3,0,1/3],[0,1/3,-1/3,1/3],[-90,2/3,0,1/3],[0,1/3,0,1/3],[90,1/3,0,1/3],[0,1/3,1/3,1/3],[90,2/3,0,1/3],[0,2/3,0,1/3]],
+	i: 5
 },{
 	name: '2fractal',
 	f: [[0,0,0,.5],[0,.5,0,.5],[90,0,-.5,.5],[90,.5,-.25,.25]],
+	i: 8
+},{
+	name: 'branches',
+	f: [[-45,0,0,Math.sqrt(2)/3],[90,1/3,-1/3,1/3],[180,2/3,0,1/3],[-90,2/3,0,1/3],[45,2/3,-1/3,Math.sqrt(2)/3]],
+	i: 7
+},{
+	name: 'spiral',
+	f: [[0,0,0,.25],[-90,.25,0,.25],[0,.25,-.25,.25],[90,.5,-.25,.5],[0,.5,.25,.25],[-90,.75,.25,.25],[0,.75,0,.25]],
+	i: 5
+},{
+	name: 'spiralx',
+	f: [[180,0,0,.25],[90,.25,0,.25],[180,.25,-.25,.25],[-90,.5,-.25,.5],[180,.5,.25,.25],[90,.75,.25,.25],[180,.75,0,.25]],
+	i: 5
+},{
+	name: 'chunks',
+	f: [[0,0,0,.25],[-90,.25,0,.25],[0,.25,-.25,.25],[90,.5,-.25,.25],[0,.5,0,.5]],
+	i: 6
+},{
+	name: 'skew-chunks',
+	f: [[0,0,0,.25],[-90,.25,0,.25],[0,.25,-.25,.25],[90,.5,-.25,.5],[0,.5,0,.5]],
 	i: 6
 },{
 	name: 'buggy-koch',
@@ -54,10 +97,6 @@ var patterns = [{
 	f: [[0,0,0,0.5],[45,.5,0,Math.sqrt(.5)]],
 	i: 13
 },{
-	name: 'tree',
-	f: [[-45,0,0,Math.sqrt(.5)],[45,.5,-.5,Math.sqrt(.5)]],
-	i: 13
-},{
 	name: 'brain',
 	f: [[90,0,0,.5],[0,0,.5,.5],[90,.5,.5,.5],[-45,0.5,1,Math.sqrt(.5)]],
 	i: 9
@@ -68,10 +107,6 @@ var patterns = [{
 },{
 	name: 'woot-ever',
 	f: [[-90,0,0,.5],[0,0,-.5,.5],[90,.5,-.5,0.5]],
-	i: 10
-},{
-	name: 'split',
-	f: [[0,0,0,1],[0,0,1/2,1/3],[0,2/3,1/2,1/3]],
 	i: 10
 },{
 	name: 'holes',
@@ -93,6 +128,14 @@ var patterns = [{
 	name: 'blob',
 	f: [[45,0,0,Math.sqrt(.5)],[-90,.5,.5,.5],[135,0.5,0,Math.sqrt(2)/2]],
 	i: 10
+},{
+	name: 'row-of-trees',
+	f: [[-45,0,0,Math.sqrt(.5)],[90,.5,-.5,.5],[0,.5,0,.5]],
+	i: 11
+},{
+	name: 'work-in-progress',
+	f: [[-90,0,0,.5],[0,0,-.5,.5],[90,.5,-.5,0.5],[0,.5,0,.5]],
+	i: 8
 }];
 
 window.onload = function () {
@@ -118,10 +161,11 @@ function updateT () {
 
 function chosen () {
 	var select = document.getElementById('choose');
+	var p = patterns[select.value];
 
-	pattern = patterns[select.value].f;
-	data = [[0,-.5,0,1]];
-	iterations = patterns[select.value].i;
+	pattern = p.f;
+	data = p.d?p.d:[[0,-.5,0,1]];
+	iterations = p.i;
 
 	if (animate) {
 		if (rendering) {
@@ -134,7 +178,7 @@ function chosen () {
 			ranim(0);
 		}
 	} else if(!animate) {
-		for (var n = 0; n < iterations; n++) {
+		for (var n = 0; n <= iterations; n++) {
 			iterate();
 		}
 		render();
@@ -144,10 +188,12 @@ function chosen () {
 }
 
 function updateDimensions () {
-	height = window.innerHeight-40;
+	height = window.innerHeight-20;
 	width = window.innerWidth;
 	canvas.height = height;
 	canvas.width = width;
+	height -= 10;
+	width -= 10;
 	render();
 }
 
@@ -211,10 +257,10 @@ function render () {
 	ctx.beginPath();
 	for (var i = 0; i < data.length; i++) {
 		var v = data[i];
-		ctx.moveTo(width/2+scales[0]*(v[1]-scales[1]),height/2+scales[0]*(v[2]-scales[2]));
-		ctx.lineTo(width/2+scales[0]*(x(v)-scales[1]),height/2+scales[0]*(y(v)-scales[2]));
+		ctx.moveTo(5+width/2+scales[0]*(v[1]-scales[1]),5+height/2+scales[0]*(v[2]-scales[2]));
+		ctx.lineTo(5+width/2+scales[0]*(x(v)-scales[1]),5+height/2+scales[0]*(y(v)-scales[2]));
 	}
-	ctx.clearRect(0,0,width,height);
+	ctx.clearRect(0,0,canvas.width,canvas.height);
 	ctx.stroke();
 }
 
@@ -247,11 +293,6 @@ function iterate () {
 			]
 
 			newVectors.push(moved);
-
-			//ctx.strokeStyle = 'rgba(0,0,255,0.5)';
-			//drawVector(scaled);// blue
-			//ctx.strokeStyle = 'rgba(0,255,0,0.5)';
-			//drawVector(moved);// green
 		}
 	}
 	data = newVectors;
