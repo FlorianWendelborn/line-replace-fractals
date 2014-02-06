@@ -4,11 +4,16 @@
 Generator for line-replacement fractals.
 
 ##Supported Fractals
--Dragon
--Sierpinski Triangle
--Self-Avoiding Dragon
--Koch Snowflake
--Custom Fractals
+- Dragon
+- Self-Avoiding Dragon
+- Sierpinski Triangle
+- Koch Curve
+- Koch Snowflake
+- Koch Antisnowflake
+- Koch Island
+- Cantor Set
+- Levy Curve
+- Custom Fractals
 
 ##License
 The MIT License (MIT)
