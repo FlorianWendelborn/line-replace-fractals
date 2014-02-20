@@ -8,7 +8,8 @@ var iterations, pattern;
 
 var patterns = [{
 	name: '',
-	f: []
+	f: [],
+	i: 0
 },{
 	name: 'dragon',
 	f: [[-45,0,0,Math.sqrt(.5)],[-135,1,0,Math.sqrt(.5)]],
@@ -132,6 +133,15 @@ var patterns = [{
 	name: 'row-of-trees',
 	f: [[-45,0,0,Math.sqrt(.5)],[90,.5,-.5,.5],[0,.5,0,.5]],
 	i: 11
+},{
+	name: 'circles',
+	f: [[90,0,-.5,.5],[-90,0,.5,.5],[90,0.5,-.25,.25],[-90,0.5,.25,.25],[0,0,0,.5],[0,.5,0,.5]],
+	d: [[0,0,0,.5],[90,.5,-.5,.5],[-90,.5,.5,.5],[180,1,0,.5]],
+	i: 6
+},{
+	name: 'woot',
+	f: [[-150,.5,Math.sqrt(1/3)/2,Math.sqrt(1/3)],[-90,.5,Math.sqrt(1/3)/2,Math.sqrt(1/3)],[-150,1,0,Math.sqrt(1/3)]],
+	i: 10
 },{
 	name: 'work-in-progress',
 	f: [[-90,0,0,.5],[0,0,-.5,.5],[90,.5,-.5,0.5],[0,.5,0,.5]],
@@ -271,25 +281,18 @@ function iterate () {
 		for (var j = 0 ; j < pattern.length; j++) {
 			var p = pattern[j];
 
-			// scale and rotate [x]
-			var scaled = [
-				p[0]+o[0],
-				0,
-				0,
-				p[3]*o[3]
-			]
-
+			// scale and rotate
 			var mX1 = Math.cos((o[0])*Math.PI/180)*p[1]*o[3];
 			var mY1 = Math.sin((o[0])*Math.PI/180)*p[1]*o[3];
 			var mX2 = Math.cos((o[0]-90)*Math.PI/180)*p[2]*o[3];
 			var mY2 = Math.sin((o[0]-90)*Math.PI/180)*p[2]*o[3];
 
-			// move [ ]
+			// move
 			var moved = [
-				scaled[0],
+				p[0]+o[0],
 				o[1]+mX1-mX2,
 				o[2]+mY1-mY2,
-				scaled[3]
+				p[3]*o[3]
 			]
 
 			newVectors.push(moved);
