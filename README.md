@@ -1,9 +1,10 @@
-#line-replace-fractals.js
+# line-replace-fractals.js
 
-##Description
+## Description
 Generator for line-replacement fractals.
 
-##Supported Fractals
+## Supported Fractals
+
 - Dragon
 - Self-Avoiding Dragon
 - Sierpinski Triangle
@@ -15,7 +16,7 @@ Generator for line-replacement fractals.
 - Levy Curve
 - Custom Fractals
 
-##License
+## License
 The MIT License (MIT)
 
 Copyright (c) 2014 Florian Wendelborn
